@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
       - name: Generate Plantuml
         uses: grassedge/generate-plantuml-action@v1.5
       - name: Commit Changes
