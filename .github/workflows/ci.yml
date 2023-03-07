@@ -20,7 +20,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y graphviz
-          sudo curl -o /usr/local/bin/plantuml.jar https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
+          sudo curl -o /usr/local/bin/plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2023.2/plantuml-1.2023.2-javadoc.jar
           sudo chmod +x /usr/local/bin/plantuml.jar
       - name: Build Diagrams
         run: |
