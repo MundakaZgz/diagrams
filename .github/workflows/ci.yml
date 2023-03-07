@@ -24,7 +24,6 @@ jobs:
           sudo chmod +x /usr/local/bin/plantuml.jar
       - name: Build Diagrams
         run: |
-          ls -lart /usr/local/bin/plantuml.jar
           bash build.sh
       - name: Commit Changes
         run: |
