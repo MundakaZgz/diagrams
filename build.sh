@@ -4,8 +4,6 @@
 mkdir temp
 find . -name "*.puml" -type f -exec cp --parents {} temp \;
 
-which plantuml
-
 # Genera las imágenes PNG correspondientes a cada archivo .puml
 cd temp
 for file in $(find . -name "*.puml" -type f); do
