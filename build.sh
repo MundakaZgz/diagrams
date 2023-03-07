@@ -7,7 +7,7 @@ find . -name "*.puml" -type f -exec cp --parents {} temp \;
 # Genera las imágenes PNG correspondientes a cada archivo .puml
 cd temp
 for file in $(find . -name "*.puml" -type f); do
-  plantuml -tpng $file
+  java -jar /usr/local/bin/plantuml.jar -tpng $file
 done
 
 # Copia las imágenes generadas a una carpeta del repositorio
