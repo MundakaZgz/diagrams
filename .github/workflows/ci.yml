@@ -9,6 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: PlantUML diagram generator
-        uses: holowinski/plantuml-github-action@1.2021.1
+      - name: Generate Plantuml
+        uses: grassedge/generate-plantuml-action@v1.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
