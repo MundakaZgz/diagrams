@@ -1,0 +1,25 @@
+@startuml
+
+!theme crt-amber
+
+rectangle "git push" as gp
+rectangle "unit test" as ut
+rectangle "static code analysis" as sca
+rectangle "schema compatibility" as sc
+rectangle "deploy to aceptance" as da
+rectangle "E2E tests" as e2e
+rectangle "PO approval" as poa
+rectangle "deploy to production" as dp
+
+
+gp --> ut
+gp --> sca
+gp --> sc
+ut --> da
+sca --> da
+sc --> da
+da --> e2e
+e2e --> poa
+poa --> dp
+
+@enduml
