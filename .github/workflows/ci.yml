@@ -9,6 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate and Commit PlantUML Diagrams
-        uses: abekoh/commit-plantuml-action@1.0.2
+      - name: PlantUML Generator
+        uses: cloudbees/plantuml-github-action@v1.1.0
+
 
