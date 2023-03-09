@@ -9,8 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate Plantuml
-        uses: grassedge/generate-plantuml-action@v1.5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate and Commit PlantUML Diagrams
+        uses: abekoh/commit-plantuml-action@1.0.2
 
