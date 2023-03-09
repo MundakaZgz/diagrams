@@ -1,10 +1,7 @@
-name: Build Diagrams
-
+name: generate and commit PlantUML diagrams
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
+  pull_request:
+    branches: [ main ]
 jobs:
   build:
     runs-on: ubuntu-latest
