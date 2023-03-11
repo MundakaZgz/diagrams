@@ -1,0 +1,58 @@
+@startuml
+
+skinparam linetype ortho
+
+rectangle build as "Development" {
+  rectangle "Análisis estático de código" as static_code_analysis
+  rectangle "Actualizar esquema" as schema_update
+  rectangle "Tets unitarios" as unit_test
+  circle "espera" as sync
+}
+
+actor "Desarrollador" as user
+rectangle "Git" as git
+rectangle "Sonar" as sonar
+
+rectangle promote_to_test as "Test" {
+  rectangle "Actualizar esquema" as schema_promotion_test
+  rectangle "Actualizar datos maestros" as update_master_data_test
+}
+
+rectangle promote_to_acceptance as "Acceptance" {
+  rectangle "Actualizar esquema" as schema_promotion_acc
+  rectangle "Actualizar datos maestros" as update_master_data_acc
+}
+
+rectangle promote_to_pro as "Production" {
+  rectangle "Aprobación manual" as promotion_check
+  rectangle "Actualizar esquema" as schema_promotion_pro
+  rectangle "Actualizar datos maestros" as update_master_data_pro
+}
+
+user -> git : push
+
+git -> schema_update
+git -> unit_test
+git -> static_code_analysis
+unit_test --[hidden]> schema_update
+schema_update --[hidden]> static_code_analysis
+static_code_analysis --> sonar
+sonar -l-> static_code_analysis
+
+static_code_analysis -> sync
+schema_update -> sync
+unit_test -> sync
+
+sync -> schema_promotion_test
+
+schema_promotion_test --> update_master_data_test
+update_master_data_test -> schema_promotion_acc
+
+schema_promotion_acc --> update_master_data_acc
+update_master_data_acc -> promotion_check
+
+promotion_check --> schema_promotion_pro
+schema_promotion_pro --> update_master_data_pro
+
+
+@enduml

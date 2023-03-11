@@ -1,0 +1,54 @@
+@startuml
+
+skinparam linetype ortho
+
+rectangle build as "Development" {
+  rectangle "Análisis estático de código" as static_code_analysis
+  rectangle "Tets unitarios" as unit_test
+  circle "espera" as sync
+}
+
+actor "Desarrollador" as user
+rectangle "Git" as git
+rectangle "Sonar" as sonar
+
+rectangle promote_to_test as "Test" {
+  rectangle "Desplegar ETL" as code_promotion_test
+  rectangle "Tests de carga" as performance_test
+}
+
+rectangle promote_to_acceptance as "Acceptance" {
+  rectangle "Desplegar ETL" as code_promotion_acc
+}
+
+rectangle promote_to_pro as "Production" {
+  rectangle "Aprobación manual" as promotion_check
+  rectangle "Desplegar ETL" as code_promotion_pro
+}
+
+rectangle "K6" as k6
+
+user -> git : push
+
+git -> unit_test
+git -> static_code_analysis
+unit_test --[hidden]> static_code_analysis
+static_code_analysis --> sonar
+sonar -l-> static_code_analysis
+
+static_code_analysis -> sync
+unit_test -> sync
+
+sync -> code_promotion_test
+
+code_promotion_test --> performance_test
+performance_test --> k6
+k6 -l-> performance_test
+performance_test -> code_promotion_acc
+
+code_promotion_acc -> promotion_check
+
+promotion_check --> code_promotion_pro
+
+
+@enduml

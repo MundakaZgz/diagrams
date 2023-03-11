@@ -11,5 +11,3 @@ jobs:
     steps:
       - name: PlantUML Generator
         uses: cloudbees/plantuml-github-action@v1.1.0
-
-
