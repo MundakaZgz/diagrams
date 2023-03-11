@@ -1,5 +1,8 @@
 name: generate and commit PlantUML diagrams
 on:
+  push:
+   paths:
+     - "**.puml"
   pull_request:
     branches: [ main ]
 jobs:
@@ -8,3 +11,13 @@ jobs:
     steps:
       - name: PlantUML Generator
         uses: cloudbees/plantuml-github-action@v1.1.0
+        with:
+          args: "-tpng"
+      - name: Push Local Changes
+        uses:  stefanzweifel/git-auto-commit-action@v4.1.2 
+        with: 
+          commit_user_name: "MundakaZgz"
+          commit_user_email: "j.herrero.moriana@gmail.com"
+          commit_author: "MundakaZgz <j.herrero.moriana@gmail.com>"
+          commit_message: "Generate SVG and PNG images for PlantUML diagrams" 
+          branch: ${{ github.head_ref }}
