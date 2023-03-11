@@ -12,7 +12,7 @@ jobs:
       - name: PlantUML Generator
         uses: cloudbees/plantuml-github-action@v1.1.0
         with:
-          args: "-tpng"
+          args: -v -tpng ${{ steps.getfile.outputs.files }}
       - name: Push Local Changes
         uses:  stefanzweifel/git-auto-commit-action@v4.1.2 
         with: 
