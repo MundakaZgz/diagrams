@@ -2,57 +2,52 @@
 
 skinparam linetype ortho
 
-rectangle build as "Development" {
-  rectangle "Análisis estático de código" as static_code_analysis
-  rectangle "Actualizar esquema" as schema_update
-  rectangle "Tets unitarios" as unit_test
-  circle "espera" as sync
-}
-
 actor "Desarrollador" as user
+actor "Product Owner" as PO
 rectangle "Git" as git
 rectangle "Sonar" as sonar
 
+rectangle build as "Development" {
+  rectangle "Análisis estático de código" as static_code_analysis
+  rectangle "Tets unitarios" as unit_test
+}
+
 rectangle promote_to_test as "Test" {
-  rectangle "Actualizar esquema" as schema_promotion_test
-  rectangle "Actualizar datos maestros" as update_master_data_test
+  rectangle "Desplegar ETL" as code_promotion_test
+  rectangle "Tests de carga" as performance_test
 }
 
 rectangle promote_to_acceptance as "Acceptance" {
-  rectangle "Actualizar esquema" as schema_promotion_acc
-  rectangle "Actualizar datos maestros" as update_master_data_acc
+  rectangle "Desplegar ETL" as code_promotion_acc
 }
 
 rectangle promote_to_pro as "Production" {
   rectangle "Aprobación manual" as promotion_check
-  rectangle "Actualizar esquema" as schema_promotion_pro
-  rectangle "Actualizar datos maestros" as update_master_data_pro
+  rectangle "Desplegar ETL" as code_promotion_pro
 }
+
+rectangle "K6" as k6
 
 user -> git : push
 
-git -> schema_update
-git -> unit_test
-git -> static_code_analysis
-unit_test --[hidden]> schema_update
-schema_update --[hidden]> static_code_analysis
-static_code_analysis --> sonar
+git --> unit_test
+unit_test --> static_code_analysis
+unit_test -l-> sonar
+sonar -> unit_test
+static_code_analysis -l-> sonar
 sonar -l-> static_code_analysis
 
-static_code_analysis -> sync
-schema_update -> sync
-unit_test -> sync
+static_code_analysis -> code_promotion_test
 
-sync -> schema_promotion_test
+code_promotion_test --> performance_test
+performance_test --> k6
+k6 -l-> performance_test
+performance_test -> code_promotion_acc
 
-schema_promotion_test --> update_master_data_test
-update_master_data_test -> schema_promotion_acc
+code_promotion_acc -> promotion_check
 
-schema_promotion_acc --> update_master_data_acc
-update_master_data_acc -> promotion_check
-
-promotion_check --> schema_promotion_pro
-schema_promotion_pro --> update_master_data_pro
+promotion_check --> code_promotion_pro
+PO -> promotion_check
 
 
 @enduml

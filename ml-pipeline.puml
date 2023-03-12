@@ -1,5 +1,50 @@
 @startuml
 
-a --> b
+skinparam linetype ortho
+
+actor "Desarrollador" as user
+actor "Product owner" as PO
+rectangle "Git" as git
+rectangle "Sonar" as sonar
+
+rectangle build as "Development" {
+  rectangle "Análisis estático de código" as static_code_analysis
+  rectangle "Tets unitarios" as unit_test
+  rectangle "Preparación" as preparation
+  rectangle "Featurización" as featurization
+  rectangle "Entrenamiento" as training
+  rectangle "Evaluación" as evaluation
+}
+
+rectangle promote_to_test as "Test" {
+  rectangle "Desplegar modelo" as model_promotion_test
+}
+
+rectangle promote_to_acceptance as "Acceptance" {
+  rectangle "Desplegar modelo" as model_promotion_acc
+}
+
+rectangle promote_to_pro as "Production" {
+  rectangle "Aprobación manual" as promotion_check
+  rectangle "Desplegar modelo" as model_promotion_pro
+}
+
+user -> git : push
+
+git -> unit_test
+unit_test --> static_code_analysis
+unit_test -r-> sonar
+sonar -l-> unit_test
+static_code_analysis -r-> sonar
+sonar -l-> static_code_analysis
+static_code_analysis --> preparation
+preparation --> featurization
+featurization --> training
+training --> evaluation
+evaluation -> model_promotion_test
+model_promotion_test -> model_promotion_acc
+model_promotion_acc -> promotion_check
+promotion_check --> model_promotion_pro
+PO -> promotion_check
 
 @enduml
