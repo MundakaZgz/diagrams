@@ -1,0 +1,77 @@
+@startmindmap
++ Frontend developer
+++ Languages
++++ HTML
+++++ DOM
+++++ Security
+++++ Semantic HTML
++++ Javascript
+++++ Storage
+++++ Services workers
+++++ New versions of Javascript
++++ CSS
+++++ Animations
+++++ CSS Architecture
+++++ Orange Juice
+++++ Responsive web design
+++++ CSS frameworks
++++ User stories and journeys
+++ Version control
++++ Git
+++++ Branching models
+++[#Orange] ING Core
+++ Testing
++++ Unit
+++++ Mocha
+++++ Chai
+++++ Sinon.js
++++ E2E
+++++ Pupeteer
+++++ Selenium
++++ Performance
+++++ Lighthouse
++++ Tools
+++++ Web-test-runner
+++++ Browserstack
+++++ Accesibility
+++++ Security
++++[#LightPink] Methodologies
+++++[#LightPink] TDD
+++++[#LightPink] BDD
+-- Accesibility
+-- Capabilities
+--- Analytics
+---[#LightPink] ITSM
+--- Configuration
+--- Rollout
+--- Router
+--- Best practices
+---- Clean code
+--- Architecture
+---- Communication patterns
+---- Networking
+--- Infrastructure
+--- Security
+-- Build tools
+--- ESLint
+--- npm
+--- Retire.js
+--- prettier
+--- rollup
+--- Storybook
+---[#Orange] Azure DevOps
+-- WebComponents
+--- HTML templates
+--- Custom elements
+--- Shadow DOM
+--- Frameworks
+---- Lit
+-----[#Orange] Lion elements
+-----[#Orange] ING web
+-- Static site generators
+--- Astro
+-- Frontend frameworks
+---[#orange] WebSDK
+@endmindmap
+
+

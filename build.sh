@@ -2,7 +2,9 @@
 
 # Descarga los diagramas de PlantUML del repositorio y los guarda en una carpeta temporal
 mkdir temp
-find . -name "*.puml" -type f -exec cp --parents {} temp \;
+find . -name "*.puml" -type f -exec cp {} temp \;
+# find . -name "*.puml" -type f -exec cp --parents {} temp \;
+
 
 # Genera las imágenes PNG correspondientes a cada archivo .puml
 cd temp

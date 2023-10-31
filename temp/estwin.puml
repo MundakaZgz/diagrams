@@ -1,0 +1,50 @@
+@startuml
+
+ skinparam linetype ortho
+
+rectangle ipc as "IPC" {
+
+    rectangle Twin {
+        package front as "Twin Front" {
+            collections ap as "Agent pages" #orange
+            collections sc as "Security components" #orange
+            collections pp as "Product pages" #orange
+            frame oct as "OCT" #orange
+        }
+
+        component ac as "assisted_channels" #orange
+        component ge as "genoma_extended" #orange
+    }
+
+    component ga as "genoma_api"
+
+    package gap as "Global Assisted Platform" {
+        component ca as "Contacting API"
+        component ma as "Messagging API"
+    }
+
+}
+
+rectangle sp as "Spain" {
+    component dg as "DG"
+    database fos as "FOS"
+    database profile as "Profile"
+}
+
+ap -- ac
+sc -- ac
+pp -- ge
+pp -- ga
+
+oct -- ca
+oct -- ma
+
+ac -- dg
+ge -- dg
+ga -- dg
+
+dg -- fos
+dg -- profile
+
+
+@enduml

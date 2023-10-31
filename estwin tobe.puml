@@ -1,0 +1,56 @@
+@startuml
+
+ skinparam linetype ortho
+
+rectangle ipc as "IPC" {
+
+    rectangle ESAgentSecurityServices #orange {
+        collections sc as "Security components" #orange
+        component ass as "Agent security services" #orange
+    }
+
+
+
+    rectangle Genoma {
+        package front as "GeMa Front" {
+            collections ap as "Agent pages" #orange
+            collections pp as "Product pages" 
+            frame oct as "OCT" 
+        }
+    }
+
+    component ga as "genoma_api"
+
+    package gap as "Global Assisted Platform" {
+        component ca as "Contacting API"
+        component ma as "Messagging API"
+    }
+
+    component perm as "Permissions API"
+
+}
+
+rectangle sp as "Spain" {
+    component dg as "DG"
+    database fos as "FOS"
+    database profile as "Profile"
+}
+
+sc -- ass
+ass -- perm
+
+pp -- sc
+
+ap -- ga
+pp -- ga
+
+oct -- ca
+oct -- ma
+
+ga -- dg
+
+dg -- fos
+dg -- profile
+
+
+@enduml
