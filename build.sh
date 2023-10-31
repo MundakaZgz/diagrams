@@ -1,26 +1,18 @@
 #!/bin/bash
 
-# Descarga los diagramas de PlantUML del repositorio y los guarda en una carpeta temporal
-mkdir temp
-find . -name "*.puml" -type f -exec cp {} temp \;
-# find . -name "*.puml" -type f -exec cp --parents {} temp \;
+# Create temp and images directories
+mkdir -p temp images
 
+# Find all .puml files, copy them to temp and generate .png images
+find . -name "*.puml" -type f -exec sh -c '
+  cp "$1" temp
+  java -jar /usr/local/bin/plantuml.jar -tpng -o ../images temp/"$1"
+' sh {} \;
 
-# Genera las imágenes PNG correspondientes a cada archivo .puml
-cd temp
-for file in $(find . -name "*.puml" -type f); do
-  java -jar /usr/local/bin/plantuml.jar -tpng $file
-done
-
-# Copia las imágenes generadas a una carpeta del repositorio
-mkdir -p ../images
-find . -name "*.png" -type f -exec cp --parents {} ../images \;
-
-# Actualiza el archivo README.md con los enlaces a las imágenes generadas
-cd ..
-for file in $(find images -name "*.png" -type f); do
-  filename=$(basename -- "$file")
+# Update README.md with links to the generated images
+find images -name "*.png" -type f -exec sh -c '
+  filename=$(basename -- "$1")
   extension="${filename##*.}"
   filename="${filename%.*}"
-  echo "![$filename]($file)" >> README.md
-done
+  echo "![$filename]($1)" >> README.md
+' sh {} \;
