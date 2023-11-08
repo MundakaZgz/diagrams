@@ -1,32 +1,10 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: catalog-info
-  description: |
-    A Backstage catalog-info component for discovering services and APIs.
+  name: diagrams
+  annotations:
+    github.com/project-slug: MundakaZgz/diagrams
 spec:
-  type: library
-  lifecycle: production
-  owner: '@MundakaZgz'
-  providesApis:
-    - openapi: https://api.example.com/openapi.json
-  providesServices:
-    - id: my-service
-      name: My Service
-      description: A service provided by my organization
-      tags:
-        - tag1
-        - tag2
-      apiVersion: v1
-      kind: Service
-      spec:
-        type: rest
-        owner: '@MundakaZgz'
-        lifecycle: production
-        dependsOn:
-          - system-service
-        providesApis:
-          - openapi: https://api.example.com/my-service/openapi.json
-        artifacts:
-          - type: dockerimage
-            reference: docker.pkg.github.com/your-org/my-service:latest
+  type: other
+  lifecycle: unknown
+  owner: MundakaZgz
