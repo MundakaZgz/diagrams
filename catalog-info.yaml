@@ -21,7 +21,7 @@ spec:
       kind: Service
       spec:
         type: rest
-        owner: '@your-org'
+        owner: '@MundakaZgz'
         lifecycle: production
         dependsOn:
           - system-service
